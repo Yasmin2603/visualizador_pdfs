@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Visualizador de provas em PDF</title>
+<title>ProvaLab — seu espaço de estudos</title>
 <style>
 :root{--bg:#f6f7f9;--card:#fff;--tx:#1d2330;--mut:#6b7385;--ac:#2f5bea;--ok:#15803d;--okbg:#e3f4e9;--bd:#e2e5ec;--warn:#b45309;--warnbg:#fdf0dc}
-@media(prefers-color-scheme:dark){:root{--bg:#14171d;--card:#1d222b;--tx:#e8ebf2;--mut:#98a1b5;--ac:#7c9cff;--ok:#6fd395;--okbg:#1b3326;--bd:#2c3340;--warn:#f0b35f;--warnbg:#38290f}}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
 header{padding:26px 20px 6px;max-width:960px;margin:auto}
 h1{margin:0 0 4px;font-size:1.6rem}header p{margin:0;color:var(--mut)}
@@ -56,9 +55,44 @@ dialog h3{margin:0}
 .pane .pg{padding:12px 0;display:flex;flex-direction:column;align-items:center;gap:12px;min-width:max-content}
 .pane canvas{background:#fff;box-shadow:0 2px 12px #0008;display:block}
 .msg{padding:30px;text-align:center;color:#cfd4e3}
+
+/* ProvaLab — identidade visual */
+:root{color-scheme:light;--bg:#f4f6fb;--card:#fff;--tx:#1b2940;--mut:#718096;--ac:#3867d6;--ok:#16824d;--okbg:#e5f5ec;--bd:#e3e9f2;--warn:#a65b12;--warnbg:#fff3df}
+body{background:linear-gradient(180deg,#f8faff 0,#f4f6fb 280px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;min-height:100vh}
+.site-head{max-width:1080px;padding:30px 24px 22px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.brand{display:flex;align-items:center;gap:13px}.brand-mark{width:44px;height:44px;border-radius:14px;background:linear-gradient(145deg,#4779ec,#2853bd);display:grid;place-items:center;color:#fff;font-size:1.35rem;font-weight:800;box-shadow:0 7px 18px #3867d633}
+.site-head h1{font-size:1.55rem;letter-spacing:-.04em;margin:0}.site-head p{font-size:.92rem;margin:3px 0 0;color:var(--mut)}
+.privacy-note{font-size:.82rem;color:#55715f;background:#eaf6ee;border:1px solid #d6ecdd;padding:8px 12px;border-radius:999px}
+.wrap{max-width:1080px;padding:0 24px}
+.bar2{gap:10px;margin-top:16px}
+input[type=search]{min-height:44px;border-radius:12px;box-shadow:0 2px 6px #1c35500a}
+button.b,a.b,button.act{padding:10px 14px;border-radius:11px;font-weight:600;transition:background .15s,border-color .15s,transform .15s}
+button.b:hover,a.b:hover{background:#edf2ff}button.act{box-shadow:0 5px 12px #3867d626}button.act:hover{background:#2854bf;transform:translateY(-1px)}
+.chip{padding:8px 14px;border-radius:999px;font-weight:600}.chip.on{box-shadow:0 3px 9px #3867d626}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:22px}
+.metric{background:#fff;border:1px solid var(--bd);border-radius:14px;padding:14px 16px;box-shadow:0 3px 12px #253b5b08}
+.metric span{display:block;color:var(--mut);font-size:.82rem;font-weight:600}.metric strong{display:block;font-size:1.45rem;letter-spacing:-.04em;margin-top:3px}
+.prog .t{margin:20px 0 7px;font-weight:600}.prog .bar{height:9px;background:#e8edf5}.prog .bar i{border-radius:99px}
+.stats{font-size:.84rem;margin:13px 0 9px}
+.card{border-radius:15px;padding:16px 18px;box-shadow:0 3px 12px #253b5b08;transition:border-color .15s,box-shadow .15s}
+.card:hover{border-color:#c7d5f1;box-shadow:0 7px 20px #253b5b0d}
+.per{color:#315ab9;font-size:1rem;min-width:82px}.info b{font-size:.98rem}.info span{line-height:1.5}
+.tag{font-weight:700;letter-spacing:.01em}
+.drop{background:#fff;border:1.5px dashed #cbd6e7;border-radius:17px;padding:30px 20px;margin:24px 0 44px;box-shadow:0 3px 12px #253b5b05}
+.drop strong{display:block;color:var(--tx);font-size:1rem}.drop p{margin:6px 0;color:var(--mut)}.drop small{color:#8793a5}
+.drop-icon{width:36px;height:36px;border-radius:12px;margin:0 auto 10px;background:#edf2ff;color:var(--ac);font-size:1.55rem;line-height:36px;font-weight:400}
+.empty-state{background:#fff;border:1px solid var(--bd);border-radius:16px;padding:28px;text-align:center;color:var(--mut)}
+.empty-state strong{display:block;color:var(--tx);font-size:1rem;margin-bottom:5px}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,16px);opacity:0;pointer-events:none;background:#1d2b43;color:white;padding:11px 16px;border-radius:12px;box-shadow:0 8px 24px #15233b33;z-index:50;transition:opacity .2s,transform .2s;font-size:.9rem}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+dialog{box-shadow:0 18px 60px #17274433}dialog::backdrop{background:#15233b66;backdrop-filter:blur(3px)}
+#tb{background:#182337;border-bottom:1px solid #101a2a;padding:10px 12px}
+#tb button{border-radius:9px}#panes{background:#303a4b}.pane{background:#39465a}.pane+.pane{border-color:#202a3a}
+@media(max-width:720px){.site-head{padding:22px 18px 16px;align-items:flex-start;flex-direction:column}.privacy-note{font-size:.76rem}.wrap{padding:0 16px}.metrics{gap:8px}.metric{padding:11px}.metric strong{font-size:1.2rem}.card{gap:10px;padding:13px}.btns{width:100%}.btns button,.btns a{flex:1;text-align:center}.per{min-width:64px}}
+@media(max-width:420px){.metrics{grid-template-columns:1fr 1fr}.metric:last-child{grid-column:span 2}.bar2>*{min-width:0}.bar2 input[type=search]{flex-basis:100%}}
+
 </style></head><body>
-<header><h1>Visualizador de provas em PDF</h1>
-<p>Carregue seus PDFs, acompanhe o que já fez, estude com zoom, gabarito ao lado e quiz. Tudo fica no seu navegador.</p></header>
+<header class="site-head"><div class="brand"><span class="brand-mark">P</span><div><h1>ProvaLab</h1><p>Seu espaço de preparação para provas.</p></div></div><span class="privacy-note">🔒 Seus PDFs ficam somente neste navegador</span></header>
 <div class="wrap">
  <div class="bar2">
   <input id="q" type="search" placeholder="Buscar por título, período, turma…">
@@ -81,13 +115,15 @@ dialog h3{margin:0}
   <button class="chip" data-g="k" data-f="gabarito">Gabaritos</button>
   <button class="chip" data-g="k" data-f="outro">Outros</button>
  </div>
+ <div class="metrics" id="metrics"></div>
  <div class="prog"><div class="t"><span id="pt"></span><span id="pp"></span></div><div class="bar"><i id="pb"></i></div></div>
  <div class="forms" id="forms"></div>
  <div class="stats" id="st"></div>
  <main id="list"></main>
- <div class="drop" id="dz">Arraste PDFs ou uma pasta para cá</div>
+ <div class="drop" id="dz"><div class="drop-icon">＋</div><strong>Adicione suas provas</strong><p>Arraste PDFs ou uma pasta inteira para cá, ou use os botões acima.</p><small>Os arquivos não são enviados para nenhum servidor.</small></div>
 </div>
 
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 <dialog id="dlg"><form method="dialog">
  <h3>Editar PDF</h3>
  <label>Título<input id="eT"></label>
@@ -116,6 +152,8 @@ dialog h3{margin:0}
 <script src="lib.js"></script>
 <script>
 const $=s=>document.querySelector(s);
+let toastTimer;
+function toast(message){const el=$("#toast");el.textContent=message;el.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>el.classList.remove("show"),2600)}
 let docs=[],view=[],fs_="all",fk="all",byId={};
 pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
@@ -132,12 +170,13 @@ function render(){
   if(fs_==="todo"&&d.done)return false;if(fs_==="done"&&!d.done)return false;
   if(fk!=="all"&&d.kind!==fk)return false;
   return !q||(d.title+" "+d.per+" "+d.turma+" "+KIND[d.kind]).toLowerCase().includes(q)});
- const n=base.filter(d=>d.done).length,T=base.length;
- $("#pt").textContent=T?n+" de "+T+" feitas":"Nenhum PDF ainda";$("#pp").textContent=T?Math.round(100*n/T)+"%":"";$("#pb").style.width=T?(100*n/T)+"%":"0";
+ const n=base.filter(d=>d.done).length,T=base.length,pending=T-n;
+ $("#metrics").innerHTML=`<div class="metric"><span>Materiais na biblioteca</span><strong>${T}</strong></div><div class="metric"><span>Concluídos</span><strong>${n}</strong></div><div class="metric"><span>Pendentes</span><strong>${pending}</strong></div>`;
+ $("#pt").textContent=T?n+" de "+T+" feitas":"Sua biblioteca está vazia";$("#pp").textContent=T?Math.round(100*n/T)+"%":"";$("#pb").style.width=T?(100*n/T)+"%":"0";
  const fm=docs.filter(d=>d.kind==="formulario");
  $("#forms").innerHTML=fm.length?"📐 Formulário: "+fm.map(d=>`<button class="b" data-o="${d.id}" data-m="prova">${esc(d.title)}</button> <button class="ic b" data-e="${d.id}">✏️</button> <button class="ic b" data-x="${d.id}">🗑</button>`).join(" "):"";
  $("#st").textContent=T?view.length+" de "+T+" itens":"";
- $("#list").innerHTML=view.map(d=>{
+ $("#list").innerHTML=view.length ? view.map(d=>{
   const g=byId[d.pair];
   const btns=`<button class="b" data-o="${d.id}" data-m="prova">📄 Abrir</button>`+
    (g?`<button class="b g" data-o="${d.id}" data-m="gab">✅ Gabarito</button><button class="b" data-o="${d.id}" data-m="split">⇆ Lado a lado</button>`:(d.kind==="prova"?`<span class="off">sem gabarito</span>`:""))+
@@ -159,7 +198,7 @@ document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{
 /* ---- adicionar / editar / remover ---- */
 $("#bAdd").onclick=()=>$("#fAdd").click();$("#bDir").onclick=()=>$("#fDir").click();
 $("#fAdd").onchange=e=>add(e.target.files);$("#fDir").onchange=e=>add(e.target.files);
-async function add(files){await addFiles([...files]);$("#fAdd").value="";$("#fDir").value="";refresh()}
+async function add(files){const count=await addFiles([...files]);$("#fAdd").value="";$("#fDir").value="";await refresh();toast(count?`${count} PDF(s) adicionado(s) à biblioteca.`:"Nenhum PDF novo encontrado.")}
 $("#bPair").onclick=async()=>{await autoPair();refresh()};
 ["dragover","dragenter"].forEach(t=>document.addEventListener(t,e=>{e.preventDefault();$("#dz").classList.add("over")}));
 document.addEventListener("dragleave",e=>{if(!e.relatedTarget)$("#dz").classList.remove("over")});
@@ -167,7 +206,7 @@ document.addEventListener("drop",async e=>{e.preventDefault();$("#dz").classList
  const out=[];const items=e.dataTransfer.items;
  const walk=async en=>{if(en.isFile)out.push(await new Promise(r=>en.file(r)));else if(en.isDirectory){const rd=en.createReader();let all=[];for(;;){const part=await new Promise(r=>rd.readEntries(r));if(!part.length)break;all=all.concat(part)}for(const c of all)await walk(c)}};
  if(items&&items[0]&&items[0].webkitGetAsEntry){for(const it of items){const en=it.webkitGetAsEntry();if(en)await walk(en)}}else out.push(...e.dataTransfer.files);
- await addFiles(out);refresh()});
+ await add(out)});
 
 let editing=null;
 function edit(id){
@@ -187,12 +226,12 @@ $("#dlg").addEventListener("close",async()=>{
 async function remove(id){
  const d=byId[id];if(!confirm('Remover "'+d.title+'" da biblioteca? (o arquivo original no seu computador não é apagado)'))return;
  for(const o of docs)if(o.pair===id){o.pair="";await DB.put(o)}
- await DB.del(id);refresh()}
+ await DB.del(id);await refresh();toast("Material removido da biblioteca.")}
 
 /* ---- backup (só metadados; os PDFs não entram) ---- */
 $("#bExp").onclick=()=>{
  const data=docs.map(d=>({name:d.name,size:d.size,title:d.title,per:d.per,turma:d.turma,kind:d.kind,done:d.done,pair:byId[d.pair]?byId[d.pair].name:""}));
- const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({v:1,docs:data},null,1)],{type:"application/json"}));a.download="backup-visualizador-pdf.json";a.click()};
+ const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([JSON.stringify({v:1,docs:data},null,1)],{type:"application/json"}));a.download="backup-provalab.json";a.click()};
 $("#bImp").onclick=()=>$("#fImp").click();
 $("#fImp").onchange=async e=>{
  const f=e.target.files[0];if(!f)return;
