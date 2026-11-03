@@ -1,31 +1,64 @@
-# Visualizador de provas em PDF
+# ProvaLab
 
-Ferramenta para estudar com provas em PDF, 100% no navegador. Nenhum arquivo é enviado para servidor: os PDFs ficam guardados no seu próprio navegador (IndexedDB).
+**Organize suas provas. Acompanhe sua evolução. Estude com mais foco.**
 
-## O que faz
+O ProvaLab é uma ferramenta de estudos no navegador para organizar provas em PDF, relacionar gabaritos, acompanhar o que já foi resolvido e transformar questões em um fluxo de revisão.
 
-- **Biblioteca:** arraste PDFs ou uma pasta inteira. Período, turma e tipo (prova, gabarito, formulário) são preenchidos pelo nome do arquivo e podem ser editados.
-- **Pareamento:** liga cada gabarito à prova do mesmo período e turma (automático ou manual).
-- **Checklist:** marque o que já fez, com barra de progresso e filtros (pendentes, feitas, tipo, busca).
-- **Visualizador:** tela cheia, zoom (botões, `Ctrl` + roda, `+`/`-`/`0`), prova e gabarito lado a lado e formulário em coluna ao lado (tecla `R`).
-- **Quiz:** identifica as questões ("1ª Questão", "2ª Questão"…) em qualquer PDF, recorta cada uma em um card, guarda seu rascunho, permite marcar acertei/errei/revisar e calcula a nota pelos pontos de cada questão.
-- **Backup:** exporta e restaura marcações, títulos e vínculos (os PDFs não entram no arquivo).
+> **Privacidade:** os PDFs são armazenados localmente no navegador, usando IndexedDB. Eles não são enviados para um servidor e não são incluídos no repositório.
 
-## Como usar
+## Funcionalidades
 
-Online (GitHub Pages): abra o link do site e carregue seus PDFs.
+- **Biblioteca de PDFs:** adicione vários arquivos ou uma pasta inteira por seleção, arraste e solte.
+- **Organização automática:** tenta identificar período, turma e tipo pelo nome do arquivo; os dados podem ser editados.
+- **Pareamento de gabaritos:** vincule prova e gabarito manualmente ou tente o pareamento automático por período e turma.
+- **Checklist de estudos:** marque materiais como concluídos, acompanhe o progresso e filtre por status ou tipo.
+- **Visualizador:** zoom, tela cheia, navegação entre materiais e visualização da prova com o gabarito lado a lado.
+- **Formulários:** mantenha um formulário de referência disponível ao estudar.
+- **Quiz:** identifica títulos como “1ª Questão”, separa questões em cards, permite dividir itens a), b), c), guardar rascunhos e marcar acertos, erros e questões para revisar.
+- **Resultado:** calcula o desempenho usando a pontuação detectada no PDF, quando disponível.
+- **Backup:** exporta e restaura metadados, marcações e vínculos. Os PDFs precisam ser adicionados novamente se você trocar de navegador ou aparelho.
 
-Local:
+## Como executar
 
-```
+### GitHub Pages
+
+Acesse a página publicada pelo GitHub Pages e carregue seus próprios PDFs.
+
+### Localmente
+
+Na pasta do projeto, execute:
+
+```bash
 python -m http.server 8000
 ```
 
-e acesse http://localhost:8000. Ou, no IntelliJ/VS Code, abra o `index.html` pelo servidor embutido.
+Depois abra [http://localhost:8000](http://localhost:8000).
 
-## Observações
+Também funciona com o servidor local do VS Code ou IntelliJ. Evite abrir o HTML diretamente por `file://`, pois alguns navegadores restringem recursos locais.
 
-- Cada navegador (e cada aparelho) tem a sua própria biblioteca. Se limpar os dados do navegador, ela some. Use o botão de backup para guardar as marcações.
-- Os recortes do quiz dependem de o PDF ter texto selecionável e títulos do tipo "1ª Questão". Em PDFs escaneados, o quiz divide por página.
-- As bibliotecas PDF.js são carregadas da internet (cdnjs).
-- Este repositório não contém provas nem gabaritos, e o `.gitignore` bloqueia `*.pdf`. Respeite os direitos autorais do material que você carregar.
+## Estrutura
+
+| Arquivo | Responsabilidade |
+| --- | --- |
+| `index.html` | Biblioteca, organização, checklist e visualizador |
+| `quiz.html` | Leitura do PDF, separação de questões e revisão |
+| `lib.js` | Banco local IndexedDB e funções compartilhadas |
+| `.gitignore` | Impede o envio acidental de PDFs e backups |
+
+## Armazenamento e privacidade
+
+- Cada navegador e aparelho possui sua própria biblioteca.
+- Limpar os dados do site pode apagar os PDFs armazenados.
+- O backup salva metadados, não o conteúdo dos PDFs.
+- Os PDFs são processados no próprio navegador com PDF.js, carregado por CDN.
+- O repositório não deve conter provas, gabaritos ou outros materiais protegidos por direitos autorais.
+
+## Limitações conhecidas
+
+- O reconhecimento de questões depende de texto selecionável e de títulos em um formato semelhante a “1ª Questão”. PDFs escaneados podem ser divididos por página.
+- A identificação automática de período, turma e tipo depende do padrão usado no nome dos arquivos; revise os dados quando necessário.
+- A biblioteca não sincroniza automaticamente entre dispositivos.
+
+## Tecnologias
+
+HTML, CSS, JavaScript, IndexedDB e [PDF.js](https://mozilla.github.io/pdf.js/).
