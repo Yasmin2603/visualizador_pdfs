@@ -181,7 +181,7 @@ function render(){
   const btns=`<button class="b" data-o="${d.id}" data-m="prova">📄 Abrir</button>`+
    (g?`<button class="b g" data-o="${d.id}" data-m="gab">✅ Gabarito</button><button class="b" data-o="${d.id}" data-m="split">⇆ Lado a lado</button>`:(d.kind==="prova"?`<span class="off">sem gabarito</span>`:""))+
    `<a class="b" href="quiz.html?doc=${d.id}">🎯 Quiz</a><button class="ic b" data-e="${d.id}" title="Editar">✏️</button><button class="ic b" data-x="${d.id}" title="Remover">🗑</button>`;
-  return `<div class="card${d.done?" done":""}"><input type="checkbox" class="ck" data-c="${d.id}" ${d.done?"checked":""} title="Marcar como feita"><div class="per">${esc(d.per||"–")}</div><div class="info"><b>${esc(d.turma||d.title)}</b><span>${esc(d.title)}</span><br><span class="tag">${KIND[d.kind]}</span></div><div class="btns">${btns}</div></div>`}).join("")}
+  return `<div class="card${d.done?" done":""}"><input type="checkbox" class="ck" data-c="${d.id}" ${d.done?"checked":""} title="Marcar como feita"><div class="per">${esc(d.per||"–")}</div><div class="info"><b>${esc(d.turma||d.title)}</b><span>${esc(d.title)}</span><br><span class="tag">${KIND[d.kind]}</span></div><div class="btns">${btns}</div></div>`}).join("") : `<section class="empty-state"><strong>${base.length ? "Nenhum material encontrado" : "Sua biblioteca está pronta para começar"}</strong><span>${base.length ? "Tente mudar a busca ou os filtros." : "Adicione provas, gabaritos e formulários em PDF para organizar seus estudos."}</span></section>`}
 
 $("#list").addEventListener("click",onClick);$("#forms").addEventListener("click",onClick);
 async function onClick(e){
