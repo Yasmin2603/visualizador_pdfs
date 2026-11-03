@@ -4,6 +4,7 @@
 pdfs/
 resolucoes/
 backup-visualizador-pdf.json
+backup-provalab.json
 
 # Sistema
 .DS_Store
