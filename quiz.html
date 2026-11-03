@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Quiz a partir de PDF</title>
+<title>ProvaLab — Quiz</title>
 <style>
 :root{--bg:#f6f7f9;--card:#fff;--tx:#1d2330;--mut:#6b7385;--ac:#2f5bea;--ok:#15803d;--okbg:#e3f4e9;--er:#b91c1c;--erbg:#fde8e8;--rv:#b45309;--rvbg:#fdf0dc;--bd:#e2e5ec}
-@media(prefers-color-scheme:dark){:root{--bg:#14171d;--card:#1d222b;--tx:#e8ebf2;--mut:#98a1b5;--ac:#7c9cff;--ok:#6fd395;--okbg:#1b3326;--er:#f28b8b;--erbg:#3a1d1d;--rv:#f0b35f;--rvbg:#38290f;--bd:#2c3340}}
 *{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--tx)}
 a{color:var(--ac)}
 #top{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 16px;background:var(--card);border-bottom:1px solid var(--bd);position:sticky;top:0;z-index:5}
@@ -41,10 +40,29 @@ textarea{width:100%;min-height:90px;margin-top:12px;padding:10px;border-radius:1
 .drop.over{border-color:var(--ac);color:var(--ac)}
 table{width:100%;border-collapse:collapse;margin-top:10px}td,th{padding:8px;border-bottom:1px solid var(--bd);text-align:left;font-size:.92rem}
 .big{font-size:1.6rem;font-weight:700}
+
+:root{color-scheme:light;--bg:#f4f6fb;--card:#fff;--tx:#1b2940;--mut:#718096;--ac:#3867d6;--ok:#16824d;--okbg:#e5f5ec;--er:#b83232;--erbg:#fff0f0;--rv:#a65b12;--rvbg:#fff3df;--bd:#e3e9f2}
+body{background:linear-gradient(180deg,#f8faff 0,#f4f6fb 280px);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}
+#top{padding:12px 20px;box-shadow:0 2px 10px #253b5b08}
+#top h1{letter-spacing:-.025em}
+button,.btn{border-radius:10px;font-weight:600;transition:background .15s,border-color .15s}
+button:hover,.btn:hover{border-color:#b8c9ec;background:#f0f4ff}
+#main{max-width:1040px;padding:22px}
+#chips{gap:7px}.chip{border-radius:999px;padding:7px 12px}
+.qh{margin:14px 0}.qh b{letter-spacing:-.025em}
+.qbox{border-radius:14px;border-color:var(--bd);box-shadow:0 3px 12px #253b5b08}
+textarea{border-radius:12px;border-color:var(--bd);background:#fff}
+.row button{border-radius:10px}
+#side{box-shadow:-8px 0 24px #253b5b0a}
+.msg{color:var(--mut)}
+.drop{background:#fff;border:1.5px dashed #cbd6e7;border-radius:16px}
+.big{letter-spacing:-.04em;color:#244d9d}
+@media(max-width:760px){#layout{display:block}#main{padding:16px}#side.show{position:fixed;inset:54px 0 0;width:100%;height:auto;z-index:10;border-left:0}#top{gap:6px;padding:10px}#top h1{min-width:120px;font-size:.98rem}#top button,#top .btn{padding:7px 9px;font-size:.82rem}}
+
 </style></head><body>
 <div id="top">
- <a class="btn" href="index.html">← Biblioteca</a>
- <h1 id="title">Quiz a partir de PDF</h1>
+ <a class="btn" href="index.html">← ProvaLab</a>
+ <h1 id="title">Quiz de estudos</h1>
  <button id="bItens" title="Separar questões com itens a), b), c)… em cards individuais">Dividir em itens</button>
  <button id="bZo">−</button><button id="bZi">+</button>
  <button id="bSide">📖 Material</button>
@@ -173,7 +191,7 @@ async function show(){
  <div class="qh"><b>${s.label}</b><span>${s.pts!=null?s.pts+" pontos · ":""}${idx+1} de ${segs.length}</span></div>
  ${s.stem?`<div class="row" style="margin:0 0 8px"><button id="bStem">Ver enunciado completo da questão</button></div><div id="stemBox" class="qbox stem" hidden></div>`:""}
  <div class="qbox" id="qb"><div class="msg">Recortando…</div></div>
- <textarea id="note" placeholder="Seu rascunho / resposta (fica salvo neste navegador)">${(rec.n||"").replace(/</g,"&lt;")}</textarea>
+ <textarea id="note" placeholder="Seu rascunho / resposta (fica salvo neste navegador)">${esc(rec.n||"")}</textarea>
  <div class="row">
   <button id="bSide2">📖 Ver gabarito / formulário</button><span class="sp"></span>
   <button class="g-ok ${rec.s==="ok"?"on":""}" data-g="ok">✅ Acertei (1)</button>
