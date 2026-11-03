@@ -1,0 +1,10 @@
+# Nunca versionar provas/gabaritos
+*.pdf
+*.PDF
+pdfs/
+resolucoes/
+backup-visualizador-pdf.json
+
+# Sistema
+.DS_Store
+Thumbs.db
